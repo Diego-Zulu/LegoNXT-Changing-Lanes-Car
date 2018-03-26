@@ -12,13 +12,18 @@ public class LCDHandler {
 	}
 
 	public static void notifyException(Exception ex) {
-		displayMessage("Exception", ex.toString());
+		displayMessage("Exception", ex.getMessage());
 	}
 	
 	public static void displayUntilButtonPressed(String title, String message) {
 		displayMessage(title, message);
 		
 		Button.waitForAnyPress();
+		
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+		}
 	}
 	
 	public static void displayAsDebug(String message, int lcdRow) {

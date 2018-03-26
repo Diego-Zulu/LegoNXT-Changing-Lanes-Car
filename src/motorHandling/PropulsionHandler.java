@@ -76,16 +76,16 @@ public class PropulsionHandler {
 			rot = rot * percentage;
 		}
 		
-		leftMotor.rotate(rot, true);
-		rightMotor.rotate(rot, true);
+		leftMotor.rotate(getRotInDirection(rot), true);
+		rightMotor.rotate(getRotInDirection(rot), true);
 	}
 	
 	public void accelerateNormally() {
 		
 		int rot = getNormalRotationInCorrectDirection();
 		
-		leftMotor.rotate(rot, true);
-		rightMotor.rotate(rot, true);
+		leftMotor.rotate(getRotInDirection(rot), true);
+		rightMotor.rotate(getRotInDirection(rot), true);
 	}
 	
 	public void stopMotors() {
@@ -95,5 +95,9 @@ public class PropulsionHandler {
 	
 	private int getNormalRotationInCorrectDirection() {
 		return normalRotation * rotationDirection;
+	}
+	
+	private int getRotInDirection(int rot) {
+		return rot * rotationDirection;
 	}
 }

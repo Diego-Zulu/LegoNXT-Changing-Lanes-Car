@@ -1,4 +1,5 @@
 package sensorHandling;
+import intelligentCar.LCDHandler;
 import lejos.nxt.SensorPort;
 import lejos.nxt.UltrasonicSensor;
 
@@ -12,13 +13,15 @@ public class ProximityCheckingHandler {
 	int lastKnownLeftFreeDistance;
 	int lastKnownRightFreeDistance;
 	
-	private final int minFreeTurnDistance = 100;
+	private final int minFreeTurnDistance = 50;
 	
 	private static ProximityCheckingHandler instance;
 	
 	private ProximityCheckingHandler() {
 		sonicLeft = new UltrasonicSensor(SensorPort.S3);
 		sonicRight = new UltrasonicSensor(SensorPort.S4);
+		
+		obstructions = new ObstructionMemory();
 		
 		sonicLeft.continuous();
 		sonicRight.continuous();
@@ -64,6 +67,10 @@ public class ProximityCheckingHandler {
 		
 		int leftDistance = sonicLeft.getDistance();
 		int rightDistance = sonicRight.getDistance();
+		
+		//TODO Remove debug lines
+				LCDHandler.displayAsDebug("IRLLef " + leftDistance + "  ", 4);
+				LCDHandler.displayAsDebug("IRLRig " + rightDistance + "  ", 5);
 		
 		obstructions.checkIfObstructionsMayBeForgotten(currentSpeed);
 		

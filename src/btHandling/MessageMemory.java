@@ -19,7 +19,7 @@ public class MessageMemory {
 	}
 
 	public void saveMessage(String message) {
-		lastMessage = message.trim();
+		lastMessage = message;
 		
 	}
 

@@ -28,6 +28,7 @@ public class IntelligentCar
 	
 	public void run() throws InterruptedException {
 		
+		LCDHandler.displayMessage("Starting BT", "Please Wait ...");
 		bt.startConnection();
 		LCDHandler.displayUntilButtonPressed("BT connected", "Start?");
 		
@@ -51,10 +52,8 @@ public class IntelligentCar
 			
 			LCDHandler.notifyException(ex);
 		}
-		
 		proximity.checkForNewObstructions(propulsion.getMaxSpeed());
 		propulsion.accelerateAcoordingToDistance(proximity.getAproximateFrontFreeDistance());
-		
 		checkForBrickButtonsPress();
 	}
 	

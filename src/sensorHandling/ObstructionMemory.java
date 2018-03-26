@@ -7,8 +7,8 @@ public class ObstructionMemory {
 	int rightObstacleAproxDistance;
 	int leftObstacleAproxDistance;
 	
-	final float speedIntoDistanceReducer = 0.5f;
-	final int distanceWhenNoObstacleInView = 0;
+	final float speedIntoDistanceReducer = 0.002f;
+	final int distanceWhenNoObstacleInView = -1;
 	
 	public ObstructionMemory() {
 		clearMemory();
@@ -23,28 +23,28 @@ public class ObstructionMemory {
 	}
 
 	public void addRightObstruction(int rightDistance) {
-		rightObstacleAproxDistance = rightDistance;
+		rightObstacleAproxDistance = Math.max(rightDistance, rightObstacleAproxDistance);
 		
 	}
 
 	public void addLeftObstruction(int leftDistance) {
-		leftObstacleAproxDistance = leftDistance;
+		leftObstacleAproxDistance = Math.max(leftDistance, leftObstacleAproxDistance);;
 		
 	}
 
 	public void checkIfObstructionsMayBeForgotten(int currentSpeed) {
 		
-		if (rightObstacleAproxDistance > 0) {
+		if (rightObstacleAproxDistance > distanceWhenNoObstacleInView) {
 			rightObstacleAproxDistance -= currentSpeed * speedIntoDistanceReducer;
 		}
 		
-		if (leftObstacleAproxDistance > 0) {
+		if (leftObstacleAproxDistance > distanceWhenNoObstacleInView) {
 			leftObstacleAproxDistance -= currentSpeed * speedIntoDistanceReducer;
 		}
 		 
 		//TODO Remove debug lines
-		LCDHandler.displayAsDebug(leftObstacleAproxDistance + "  ", 6);
-		LCDHandler.displayAsDebug(rightObstacleAproxDistance + "  ", 7);
+		LCDHandler.displayAsDebug("MEMLef " + leftObstacleAproxDistance + "  ", 6);
+		LCDHandler.displayAsDebug("MEMRig " + rightObstacleAproxDistance + "  ", 7);
 	}
 	
 	public void clearMemory() {
