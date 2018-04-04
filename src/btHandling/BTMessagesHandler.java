@@ -100,9 +100,8 @@ public class BTMessagesHandler {
 		if (proximity.canTurn(value)) {
 			direction.rotateDirectionTo(value, true);
 			return true;
-		} else {
-			return false;
 		}
+		return direction.canCorrectDirection(value);
 	}
 	
 	private boolean tryTurnByMessage(int value) {

@@ -8,8 +8,8 @@ public class PropulsionHandler {
 	int normalRotation;
 	final int defaultRotationAmount = 20;
 	final int rotationDirection = -1;
-	final int minDistanceToMaintain = 5;
-	final int maxDistanceToAccountFor = 15;
+	final int minDistanceToMaintain = 10;
+	final int maxDistanceToAccountFor = 20;
 	
 	NXTRegulatedMotor leftMotor; 	//B Motor (backwards to go)
 	NXTRegulatedMotor rightMotor;	//C Motor (backwards to go)

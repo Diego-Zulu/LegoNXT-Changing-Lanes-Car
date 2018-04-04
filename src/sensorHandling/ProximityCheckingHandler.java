@@ -13,7 +13,7 @@ public class ProximityCheckingHandler {
 	int lastKnownLeftFreeDistance;
 	int lastKnownRightFreeDistance;
 	
-	private final int minFreeTurnDistance = 50;
+	private final int minFreeTurnDistance = 30;
 	
 	private static ProximityCheckingHandler instance;
 	

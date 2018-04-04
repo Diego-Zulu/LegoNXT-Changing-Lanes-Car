@@ -10,6 +10,7 @@ public class DirectionHandler {
 	private static DirectionHandler instance;
 	
 	final int maxAngle = 90; //Breaks direction if turned further
+	final int maxRouteCorrectionAngle = 10;
 	
 	public void setMaxSpeed(int newMaxSpeed) {
 		directionMotor.setSpeed(newMaxSpeed);
@@ -23,6 +24,21 @@ public class DirectionHandler {
 		
 		setMaxSpeed(maxSpeed);
 		setRotationAmount(normalRot);
+	}
+	
+	public int getDirectionPos() {
+		return directionMotor.getPosition();
+	}
+	
+	public boolean canCorrectDirection(int angle) {
+		
+		if (angle + getDirectionPos() <= maxRouteCorrectionAngle 
+				&& angle + getDirectionPos() >= -maxRouteCorrectionAngle) {
+			
+			directionMotor.rotate(angle, true);
+			return true;
+		} 
+		return false;
 	}
 	
 	public static DirectionHandler getInstance() {
