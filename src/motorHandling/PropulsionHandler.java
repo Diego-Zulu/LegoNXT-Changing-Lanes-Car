@@ -5,22 +5,17 @@ import lejos.nxt.NXTRegulatedMotor;
 
 public class PropulsionHandler {
 	
-	int normalRotation;
-	final int defaultRotationAmount = 20;
+	final int minSpeed = 360;
+	final int maxSpeed = 720;
 	final int rotationDirection = -1;
+	final int frontMethodRotationDirection = 1;
 	final int minDistanceToMaintain = 10;
-	final int maxDistanceToAccountFor = 20;
+	final int maxDistanceToAccountFor = 30;
 	
 	NXTRegulatedMotor leftMotor; 	//B Motor (backwards to go)
 	NXTRegulatedMotor rightMotor;	//C Motor (backwards to go)
 	
 	private static PropulsionHandler instance;
-	
-	public void configureMovement(int maxSpeed, int normalRot) {
-		
-		setMaxSpeed(maxSpeed);
-		setRotationAmount(normalRot);
-	}
 	
 	public static PropulsionHandler getInstance() {
 		
@@ -30,21 +25,19 @@ public class PropulsionHandler {
 		return instance;
 	}
 	
-	public void setMaxSpeed(int newMaxSpeed) {
+	public void setSpeed(int newSpeed) {
+		newSpeed = Math.min(Math.max(minSpeed, newSpeed), Math.min(newSpeed, maxSpeed));
+		leftMotor.setSpeed(newSpeed);
+		rightMotor.setSpeed(newSpeed);
+	}
+	
+	public void setMinSpeed(int newMaxSpeed) {
 		leftMotor.setSpeed(newMaxSpeed);
 		rightMotor.setSpeed(newMaxSpeed);
 	}
 	
-	public void setRotationAmount(int newNormalRot) {
-		normalRotation = newNormalRot;
-	}
-	
-	public int getMaxSpeed() {
+	public int getSpeed() {
 		return leftMotor.getSpeed();
-	}
-	
-	public int getRotationAmount() {
-		return normalRotation;
 	}
 	
 	private void assignMotors() {
@@ -52,52 +45,47 @@ public class PropulsionHandler {
 		rightMotor = Motor.C;
 	}
 	
-	private PropulsionHandler(int maxSpeed, int normalRot) {
+	private PropulsionHandler(int maxSpeed) {
 		
 		assignMotors();
-		configureMovement(maxSpeed, normalRot);
+		setSpeed(maxSpeed);
 	}
 	
 	private PropulsionHandler() {
 		
 		assignMotors();
-		setRotationAmount(defaultRotationAmount);
 	}
 
 	public void accelerateAcoordingToDistance(int distance) {
 		
-		int rot = normalRotation;
-		
 		if (minDistanceToMaintain >= distance) {
 			stopMotors();
 			return;
-		} else if (distance <= maxDistanceToAccountFor) {
-			int percentage = distance / maxDistanceToAccountFor;
-			rot = rot * percentage;
+		} else { 
+			int speed = maxSpeed;
+			accelerateNormally();
+			if (distance <= maxDistanceToAccountFor) {
+				int percentage = (distance - minDistanceToMaintain) / (maxDistanceToAccountFor - minDistanceToMaintain);
+				speed = minSpeed + ((maxSpeed - minSpeed) * percentage);
+			}
+			setSpeed(speed);
 		}
 		
-		leftMotor.rotate(getRotInDirection(rot), true);
-		rightMotor.rotate(getRotInDirection(rot), true);
 	}
 	
 	public void accelerateNormally() {
 		
-		int rot = getNormalRotationInCorrectDirection();
-		
-		leftMotor.rotate(getRotInDirection(rot), true);
-		rightMotor.rotate(getRotInDirection(rot), true);
+		if (frontMethodRotationDirection == rotationDirection) {
+			leftMotor.forward();
+			rightMotor.forward();
+		} else {
+			leftMotor.backward();
+			rightMotor.backward();
+		}
 	}
 	
 	public void stopMotors() {
 		leftMotor.stop();
 		rightMotor.stop();
-	}
-	
-	private int getNormalRotationInCorrectDirection() {
-		return normalRotation * rotationDirection;
-	}
-	
-	private int getRotInDirection(int rot) {
-		return rot * rotationDirection;
 	}
 }

@@ -25,7 +25,6 @@ public class BTMessagesHandler {
 		
 		boolean valid = validMessage(message);
 		if (valid) {
-			
 			carryOutNecessarySteps(message);
 		} else {
 			LCDHandler.displayMessage("UNK BT Message", message);
@@ -34,23 +33,22 @@ public class BTMessagesHandler {
 	}
 	
 	private boolean validMessage(String message) {
-		
-		return message.length() == totalMessageLength && actionIsKnown(message) && valueisNumeric(message);
+
+		return message != null && message.length() == totalMessageLength && actionIsKnown(message) && valueisNumeric(message);
 	}
 	
 	private boolean actionIsKnown(String message) {
 		String action = extractActionFromBTMessage(message);
-		
 		return action.equals(turnToMessage) || action.equals(turnByMessage);
 	}
 	
 	private String extractActionFromBTMessage(String btMessage) {
-		
 		return btMessage.substring(0, actionMessageLength);
 	}
 	
 	private boolean valueisNumeric(String message)
 	{
+
 		String value = extractValueFromBTMessage(message);
 		for (int i=0; i<value.length(); i++) {
 			

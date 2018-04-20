@@ -11,7 +11,7 @@ public class MessageMemory {
 	}
 
 	public boolean hasSavedMessage() {
-		return lastMessage.equals(emptyMessage);
+		return !lastMessage.equals(emptyMessage);
 	}
 
 	public String getMessage() {

@@ -44,15 +44,14 @@ public class IntelligentCar
 		
 		String btMessage = "";
 		try {
-			
 		btMessage = bt.receiveMessage();
 		messageHandler.actOnBTMessage(btMessage);
-		
+
 		} catch (IOException ex) {
 			
 			LCDHandler.notifyException(ex);
 		}
-		proximity.checkForNewObstructions(propulsion.getMaxSpeed());
+		proximity.checkForNewObstructions(propulsion.getSpeed());
 		propulsion.accelerateAcoordingToDistance(proximity.getAproximateFrontFreeDistance());
 		checkForBrickButtonsPress();
 	}
@@ -65,7 +64,7 @@ public class IntelligentCar
 	
 	private void checkForManualSpeedUpOrDown() {
 		
-		int actualSpeed = propulsion.getMaxSpeed();
+		int actualSpeed = propulsion.getSpeed();
 		if (Button.LEFT.isDown()) {
 			actualSpeed -= speedModifier;
 			LCDHandler.displayMessage("SPEED DOWN", actualSpeed + "");
