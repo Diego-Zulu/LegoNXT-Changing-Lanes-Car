@@ -5,8 +5,8 @@ import lejos.nxt.NXTRegulatedMotor;
 
 public class PropulsionHandler {
 	
-	final int minSpeed = 360;
-	final int maxSpeed = 720;
+	final int minSpeed = 60;
+	final int maxSpeed = 120;
 	final int rotationDirection = -1;
 	final int frontMethodRotationDirection = 1;
 	final int minDistanceToMaintain = 10;

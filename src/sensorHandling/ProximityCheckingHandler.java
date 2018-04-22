@@ -60,7 +60,12 @@ public class ProximityCheckingHandler {
 		int rightAprox = (lastKnownRightFreeDistance + sonicRight.getDistance()) / 2;
 		int leftAprox = (lastKnownLeftFreeDistance + sonicLeft.getDistance()) / 2;
 		
-		return (leftAprox + rightAprox) / 2;
+		int aprox = (leftAprox + rightAprox) / 2;
+		
+		//TODO Remove debug lines
+		LCDHandler.displayAsDebug("Aprox " + aprox + "  ", 3);
+		
+		return aprox;
 	}
 	
 	public void checkForNewObstructions(int currentSpeed) {

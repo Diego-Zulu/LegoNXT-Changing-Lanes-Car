@@ -10,7 +10,7 @@ public class DirectionHandler {
 	private static DirectionHandler instance;
 	
 	final int maxAngle = 90; //Breaks direction if turned further
-	final int maxRouteCorrectionAngle = 10;
+	final int maxRouteCorrectionAngle = 25;
 	
 	public void setMaxSpeed(int newMaxSpeed) {
 		directionMotor.setSpeed(newMaxSpeed);

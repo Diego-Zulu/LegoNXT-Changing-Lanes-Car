@@ -7,7 +7,7 @@ public class ObstructionMemory {
 	int rightObstacleAproxDistance;
 	int leftObstacleAproxDistance;
 	
-	final float speedIntoDistanceReducer = 0.002f;
+	final float speedIntoDistanceReducer = 0.05f;
 	final int distanceWhenNoObstacleInView = -1;
 	
 	public ObstructionMemory() {
