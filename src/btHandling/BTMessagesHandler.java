@@ -99,7 +99,7 @@ public class BTMessagesHandler {
 			direction.rotateDirectionTo(value, true);
 			return true;
 		}
-		return direction.canCorrectDirection(value);
+		return direction.couldCorrectDirection(value);
 	}
 	
 	private boolean tryTurnByMessage(int value) {

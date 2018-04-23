@@ -6,6 +6,7 @@ import sensorHandling.ProximityCheckingHandler;
 import btHandling.BTConnectionHandler;
 import btHandling.BTMessagesHandler;
 import lejos.nxt.Button;
+import motorHandling.DirectionHandler;
 import motorHandling.PropulsionHandler;
  
 public class IntelligentCar
@@ -24,6 +25,7 @@ public class IntelligentCar
 		proximity = ProximityCheckingHandler.getInstance();
 		propulsion = PropulsionHandler.getInstance();
 		messageHandler = new BTMessagesHandler();
+		DirectionHandler.createInstance();
 	}
 	
 	public void run() throws InterruptedException {

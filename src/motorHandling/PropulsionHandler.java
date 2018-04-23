@@ -9,8 +9,8 @@ public class PropulsionHandler {
 	final int maxSpeed = 120;
 	final int rotationDirection = -1;
 	final int frontMethodRotationDirection = 1;
-	final int minDistanceToMaintain = 10;
-	final int maxDistanceToAccountFor = 30;
+	final int minDistanceToMaintain = 15;
+	final int maxDistanceToAccountFor = 40;
 	
 	NXTRegulatedMotor leftMotor; 	//B Motor (backwards to go)
 	NXTRegulatedMotor rightMotor;	//C Motor (backwards to go)

@@ -47,12 +47,12 @@ public class ProximityCheckingHandler {
 	
 	public boolean canTurnRight() {
 		
-		return sonicRight.getDistance() >= minFreeTurnDistance && obstructions.noRightObstruction();
+		return (sonicRight.getDistance() + lastKnownRightFreeDistance) / 2 >= minFreeTurnDistance && obstructions.noRightObstruction();
 	}
 	
 	public boolean canTurnLeft() {
 		
-		return sonicLeft.getDistance() >= minFreeTurnDistance && obstructions.noLeftObstruction();
+		return (sonicLeft.getDistance() + lastKnownLeftFreeDistance) / 2 >= minFreeTurnDistance && obstructions.noLeftObstruction();
 	}
 	
 	public int getAproximateFrontFreeDistance() {

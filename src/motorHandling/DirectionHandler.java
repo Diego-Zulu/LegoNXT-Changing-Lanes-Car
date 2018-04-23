@@ -16,6 +16,12 @@ public class DirectionHandler {
 		directionMotor.setSpeed(newMaxSpeed);
 	}
 	
+	public static void createInstance() {
+		if (instance == null) {
+			instance = new DirectionHandler();
+		}
+	}
+	
 	public void setRotationAmount(int newNormalRot) {
 		normalRotation = newNormalRot;
 	}
@@ -30,7 +36,7 @@ public class DirectionHandler {
 		return directionMotor.getPosition();
 	}
 	
-	public boolean canCorrectDirection(int angle) {
+	public boolean couldCorrectDirection(int angle) {
 		
 		if (angle + getDirectionPos() <= maxRouteCorrectionAngle 
 				&& angle + getDirectionPos() >= -maxRouteCorrectionAngle) {
